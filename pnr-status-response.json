@@ -1,0 +1,107 @@
+HTTP/1.1 200 OK
+Date: Sat, 16 Mar 2024 20:12:21 GMT
+Content-Type: application/json; charset=utf-8
+Content-Length: 1905
+Connection: close
+ETag: W/"771-o0VDPEOtuxLCMHgk9cJtV/TCd+Y"
+X-Powered-By: Express
+X-RateLimit-Basic-Limit: 25
+X-RateLimit-Basic-Remaining: 21
+X-RateLimit-Basic-Reset: 2674899
+X-RateLimit-rapid-free-plans-hard-limit-Limit: 500000
+X-RateLimit-rapid-free-plans-hard-limit-Remaining: 499996
+X-RateLimit-rapid-free-plans-hard-limit-Reset: 2674899
+Server: RapidAPI-1.2.8
+X-RapidAPI-Version: 1.2.8
+X-RapidAPI-Region: AWS - ap-southeast-1
+
+{
+    "status": true,
+    "message": "Success",
+    "timestamp": 1710619941470,
+    "data": {
+      "Pnr": "2636366109",
+      "TrainNo": "12324",
+      "TrainName": "BME HWH SF EXP",
+      "Doj": "21-03-2024",
+      "BookingDate": "09-01-2024",
+      "Quota": "GN",
+      "DestinationDoj": "21-03-2024",
+      "SourceDoj": "20-03-2024",
+      "From": "DLI",
+      "To": "GAYA",
+      "ReservationUpto": "GAYA",
+      "BoardingPoint": "DLI",
+      "Class": "2A",
+      "ChartPrepared": false,
+      "BoardingStationName": "Old Delhi",
+      "TrainStatus": "",
+      "TrainCancelledFlag": false,
+      "ReservationUptoName": "Gaya Junction",
+      "PassengerCount": 1,
+      "PassengerStatus": [
+        {
+          "ReferenceId": null,
+          "Pnr": null,
+          "Number": 1,
+          "Prediction": "High Chance( 91% )",
+          "PredictionPercentage": "91",
+          "ConfirmTktStatus": "Confirm",
+          "Coach": "",
+          "Berth": 1,
+          "BookingStatus": "W/L  1,RLGN",
+          "CurrentStatus": "RLWL  1",
+          "CoachPosition": null,
+          "BookingBerthNo": "1,RLGN",
+          "BookingCoachId": "",
+          "BookingStatusNew": "W/L",
+          "BookingStatusIndex": "0",
+          "CurrentBerthNo": "1",
+          "CurrentCoachId": "",
+          "BookingBerthCode": null,
+          "CurrentBerthCode": null,
+          "CurrentStatusNew": "RLWL",
+          "CurrentStatusIndex": "0"
+        }
+      ],
+      "DepartureTime": "07:55",
+      "ArrivalTime": "22:05",
+      "ExpectedPlatformNo": "6",
+      "BookingFare": "1885",
+      "TicketFare": "1885",
+      "CoachPosition": "L SLR UR UR S1 S2 S3 S4 S5 S6 S7 S8 S9 PC HA1 A1 A2 B1 B2 B3 B4 B5 SLR",
+      "Rating": 3.1,
+      "FoodRating": 2.2,
+      "PunctualityRating": 3.2,
+      "CleanlinessRating": 3.8,
+      "SourceName": "NEW DELHI",
+      "DestinationName": "Gaya",
+      "Duration": "14:10",
+      "RatingCount": 792,
+      "HasPantry": true,
+      "GroupingId": null,
+      "OptVikalp": false,
+      "VikalpData": "",
+      "VikalpTransferred": false,
+      "VikalpTransferredMessage": "",
+      "FlightBannerUrl": "https://cdn.confirmtkt.com/img/banner/flight_banner_waitlist_cancellation_screen.png",
+      "FromDetails": {
+        "category": "A1",
+        "division": "DLI",
+        "latitude": "28.6609677",
+        "longitude": "77.2276704",
+        "state": "DELHI",
+        "stationCode": "DLI",
+        "stationName": "DELHI JN."
+      },
+      "BoardingPointDetails": {
+        "category": "A1",
+        "division": "DLI",
+        "latitude": "28.6609677",
+        "longitude": "77.2276704",
+        "state": "DELHI",
+        "stationCode": "DLI",
+        "stationName": "DELHI JN."
+      }
+    }
+  }
