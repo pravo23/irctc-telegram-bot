@@ -41,4 +41,15 @@ def get_station_handler(message):
     resp_message = rail_query_helper.search_station_response(station_code)
     bot.send_message(message.chat.id, resp_message, parse_mode="Markdown")
 
+@bot.message_handler(commands=["searchTrain"])
+def get_train(message):
+    input_message="Please enter the train number!"
+    sent_message = bot.send_message(message.chat.id, input_message, parse_mode="Markdown")
+    bot.register_next_step_handler(sent_message, get_station_handler)
+
+def get_train_handler(message):
+    train_code = message.text
+    resp_message = rail_query_helper.search_train_response(train_code.strip())
+    bot.send_message(message.chat.id, resp_message, parse_mode="Markdown")
+
 bot.infinity_polling()
