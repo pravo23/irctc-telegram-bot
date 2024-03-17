@@ -175,7 +175,6 @@ def fetch_fair_response(
 
 def live_train_status_response(train_code, start_day=0):
     resp = live_train_status(train_code, start_day)
-    # resp = sampleResponse
 
     if resp.get('status') and resp.get('message') == 'Success':
 
@@ -185,8 +184,8 @@ def live_train_status_response(train_code, start_day=0):
 
 
 def train_schedule_response(train_code, start_day=0):
-    # resp = train_schedule(train_code)
-    resp = sampleResponse
+    resp = train_schedule(train_code)
+    # resp = sampleResponse
 
     if resp.get('status') and resp.get('message') == 'Success':
 
