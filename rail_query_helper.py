@@ -1,6 +1,7 @@
 import os
 import requests
-from constants import railApiEndpoints
+from constants import railApiEndpoints, sampleResponse # TODO : remove sample response after test
+
 
 def get_rail_query_info(url: str):
     HOST = os.environ.get("HOST")
@@ -108,6 +109,7 @@ def pnr_status_message(pnr: str):
 
 # TODO: fetch the code instead, based on search query?
 
+
 def search_station_response(station_code: str):
     resp = search_station(station_code)
     if resp.get('status') and resp.get('message') == 'Success':
@@ -129,3 +131,44 @@ def search_train_response(train_code: str):
         return f"No train available for the given train number : {train_code}"
 
     return f"Could not fetch the data. Try again!"
+
+
+def fetch_fair_response(
+        train_code: str,
+        from_station_code: str,
+        to_station_code: str):
+    resp = fetch_fair(train_code, from_station_code, to_station_code)
+    # resp = samprleResponse
+    total_fare = {'general': {}, 'tatkal': {}}
+
+    if resp.get('status') and resp.get('message') == 'Success':
+        # Process general data
+        for entry in resp['data']['general']:
+            class_type = entry['classType']
+            fare = entry['fare']
+            total_fare['general'].setdefault(class_type, 0)
+            total_fare['general'][class_type] += fare
+
+        # Process tatkal data
+        for entry in resp['data']['tatkal']:
+            class_type = entry['classType']
+            fare = entry['fare']
+            total_fare['tatkal'].setdefault(class_type, 0)
+            total_fare['tatkal'][class_type] += fare
+    else:
+        return f"Could not fetch fair, Try again!"
+
+    # format the data
+    multiline_string = ""
+
+    multiline_string += "Total Fare for General Class:\n"
+    for class_type, fare in total_fare['general'].items():
+        multiline_string += f"{class_type}: {fare}\n"
+
+    multiline_string += "\nTotal Fare for Tatkal Class:\n"
+    for class_type, fare in total_fare['tatkal'].items():
+        multiline_string += f"{class_type}: {fare}\n"
+
+    print(multiline_string)
+
+    return multiline_string
