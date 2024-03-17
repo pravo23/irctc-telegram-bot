@@ -16,6 +16,7 @@ def greet(message):
     */about* : Learn more about this bot
     */pnr* : Get the pnr status of the train ticket
     */searchStation* : Search station name
+    */searchTrain* : Search the train by number
     """
     bot.send_message(message.chat.id, greet_message, parse_mode='Markdown')
 
@@ -45,7 +46,7 @@ def get_station_handler(message):
 def get_train(message):
     input_message="Please enter the train number!"
     sent_message = bot.send_message(message.chat.id, input_message, parse_mode="Markdown")
-    bot.register_next_step_handler(sent_message, get_station_handler)
+    bot.register_next_step_handler(sent_message, get_train_handler)
 
 def get_train_handler(message):
     train_code = message.text
