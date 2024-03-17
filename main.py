@@ -18,6 +18,7 @@ def greet(message):
     */pnr* : Get the pnr status of the train ticket
     */searchStation* : Search station name
     */searchTrain* : Search the train by number
+    */getFair* : Get fair for train
     """
     bot.send_message(message.chat.id, greet_message, parse_mode='Markdown')
 
@@ -68,6 +69,57 @@ def get_train_handler(message):
     train_code = message.text
     resp_message = rail_query_helper.search_train_response(train_code.strip())
     bot.send_message(message.chat.id, resp_message, parse_mode="Markdown")
+
+
+@bot.message_handler(commands=["getFair"])
+def get_fair(message):
+    input_message = "Please enter the train number!"
+    sent_message = bot.send_message(
+        message.chat.id,
+        input_message,
+        parse_mode="Markdown")
+    bot.register_next_step_handler(sent_message, get_source_station_code)
+
+
+def get_source_station_code(message):
+    train_code = message.text
+    input_message = "Please Enter Source Station Code!"
+    sent_message = bot.send_message(
+        message.chat.id,
+        input_message,
+        parse_mode="Markdown"
+    )
+    bot.register_next_step_handler(
+        sent_message,
+        get_destination_station_code,
+        train_code)
+
+
+def get_destination_station_code(message, train_code):
+    source_station_code = message.text.strip().upper()
+    input_message = "Please Enter Destination Station Code!"
+    sent_message = bot.send_message(
+        message.chat.id,
+        input_message,
+        parse_mode="Markdown"
+    )
+    bot.register_next_step_handler(
+        sent_message,
+        get_fair_handler,
+        train_code,
+        source_station_code)
+
+
+def get_fair_handler(message, train_code, source_station_code):
+    dest_station_code = message.text.strip().upper()
+
+    resp_message = rail_query_helper.fetch_fair_response(
+        train_code, source_station_code, dest_station_code)
+    bot.send_message(
+        message.chat.id,
+        resp_message,
+        parse_mode="Markdown"
+    )
 
 
 bot.infinity_polling()
