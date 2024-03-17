@@ -95,3 +95,14 @@ def search_station_response(station_code : str):
         return f"No station available with station code: *{station_code}*"
 
     return f"Could not fetch the data. Try again!"
+
+def search_train_response(train_code: str):
+    resp = search_train(train_code)
+    if resp.get('status') and resp.get('message') == 'Success':
+        for train in resp.get('data'):
+            if train.get('train_number') == train_code:
+                return f"{train_code} : *{train.get('train_name')}*"
+
+        return f"No train available for the given train number : {train_code}"
+
+    return f"Could not fetch the data. Try again!"
