@@ -19,15 +19,6 @@ def fetch_pnr_status(pnr: str):
     url = f"https://{{}}{fetch_pnr_status_endpoint}"
     return get_rail_query_info(url)
 
-def pnr_status_message(pnr: str):
-
-    resp = fetch_pnr_status(pnr)
-    if resp.get('status') and resp.get('message') == 'Success':
-        data = resp['data']['PassengerStatus'][-1]
-        return f"Your Booking is *{data['ConfirmTktStatus']}* and Current Status is *{data['CurrentStatus']}*"
-    
-    return "Unable to fetch the pnr : *{pnr}*"
-
 def search_station(station_code):
     search_station_endpoint = railApiEndpoints['searchStation'].format(station_code)
     url = f"https://{{}}{search_station_endpoint}"
@@ -82,3 +73,25 @@ def live_stations(from_station_code, to_station_code, hours):
     live_stations_endpoint = railApiEndpoints['liveStations'].format(from_station_code, to_station_code, hours)
     url = f"https://{{}}{live_stations_endpoint}"
     return get_rail_query_info(url)
+
+## methods for the formatted response
+
+def pnr_status_message(pnr: str):
+
+    resp = fetch_pnr_status(pnr)
+    if resp.get('status') and resp.get('message') == 'Success':
+        data = resp['data']['PassengerStatus'][-1]
+        return f"Your Booking is *{data['ConfirmTktStatus']}* and Current Status is *{data['CurrentStatus']}*"
+
+    return "Unable to fetch the pnr : *{pnr}*"
+
+## TODO: fetch the code instead, based on search query
+def search_station_response(station_code : str):
+    resp = search_station(station_code)
+    if resp.get('status') and resp.get('message') == 'Success':
+        for station in resp.get('data'):
+            if station.get('code') == station_code.upper():
+                return f"{station_code} : *{station.get('name')}*"
+        return f"No station available with station code: *{station_code}*"
+
+    return f"Could not fetch the data. Try again!"
