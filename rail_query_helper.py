@@ -85,7 +85,7 @@ def pnr_status_message(pnr: str):
 
     return "Unable to fetch the pnr : *{pnr}*"
 
-## TODO: fetch the code instead, based on search query
+## TODO: fetch the code instead, based on search query?
 def search_station_response(station_code : str):
     resp = search_station(station_code)
     if resp.get('status') and resp.get('message') == 'Success':
