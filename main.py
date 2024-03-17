@@ -19,6 +19,7 @@ def greet(message):
     */searchStation* : Search station name
     */searchTrain* : Search the train by number
     */getFair* : Get fair for train
+    */track* : Get train running status
     """
     bot.send_message(message.chat.id, greet_message, parse_mode='Markdown')
 
@@ -120,6 +121,24 @@ def get_fair_handler(message, train_code, source_station_code):
         resp_message,
         parse_mode="Markdown"
     )
+
+
+@bot.message_handler(commands=["track"])
+def get_train_running_status(message):
+    input_message = "Please enter the train number!"
+    sent_message = bot.send_message(
+        message.chat.id,
+        input_message,
+        parse_mode="Markdown")
+    bot.register_next_step_handler(
+        sent_message, get_train_running_status_handler)
+
+
+def get_train_running_status_handler(message):
+    train_code = message.text
+    resp_message = rail_query_helper.live_train_status_response(
+        train_code.strip())
+    bot.send_message(message.chat.id, resp_message, parse_mode="Markdown")
 
 
 bot.infinity_polling()

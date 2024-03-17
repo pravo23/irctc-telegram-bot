@@ -1,6 +1,7 @@
 import os
 import requests
-from constants import railApiEndpoints, sampleResponse # TODO : remove sample response after test
+# TODO : remove sample response after test
+from constants import railApiEndpoints, sampleResponse
 
 
 def get_rail_query_info(url: str):
@@ -169,6 +170,14 @@ def fetch_fair_response(
     for class_type, fare in total_fare['tatkal'].items():
         multiline_string += f"{class_type}: {fare}\n"
 
-    print(multiline_string)
-
     return multiline_string
+
+def live_train_status_response(train_code, start_day=0):
+    resp = live_train_status(train_code, start_day)
+    # resp = sampleResponse
+
+    if resp.get('status') and resp.get('message') == 'Success':
+
+        return f"Running status of {resp['data'].get('train_name')} (*{resp['data'].get('train_number')}*) : {resp['data'].get('new_message')}"
+
+    return f"Unable to fetch the live status!"
