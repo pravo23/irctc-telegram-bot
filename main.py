@@ -14,12 +14,12 @@ def greet(message):
     Welcome to the IRCTC Telegram Bot!
     Here are some commands you can use:
     */help* : Display help message
-    */about* : Learn more about this bot
     */pnr* : Get the pnr status of the train ticket
     */searchStation* : Search station name
     */searchTrain* : Search the train by number
     */getFair* : Get fair for train
     */track* : Get train running status
+    */schedule* : Get train schedule time
     """
     bot.send_message(message.chat.id, greet_message, parse_mode='Markdown')
 
@@ -137,6 +137,24 @@ def get_train_running_status(message):
 def get_train_running_status_handler(message):
     train_code = message.text
     resp_message = rail_query_helper.live_train_status_response(
+        train_code.strip())
+    bot.send_message(message.chat.id, resp_message, parse_mode="Markdown")
+
+
+@bot.message_handler(commands=["schedule"])
+def get_train_schedule(message):
+    input_message = "Please enter the train number!"
+    sent_message = bot.send_message(
+        message.chat.id,
+        input_message,
+        parse_mode="Markdown")
+    bot.register_next_step_handler(
+        sent_message, get_train_schedule_handler)
+
+
+def get_train_schedule_handler(message):
+    train_code = message.text
+    resp_message = rail_query_helper.train_schedule_response(
         train_code.strip())
     bot.send_message(message.chat.id, resp_message, parse_mode="Markdown")
 

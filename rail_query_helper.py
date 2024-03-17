@@ -172,6 +172,7 @@ def fetch_fair_response(
 
     return multiline_string
 
+
 def live_train_status_response(train_code, start_day=0):
     resp = live_train_status(train_code, start_day)
     # resp = sampleResponse
@@ -181,3 +182,14 @@ def live_train_status_response(train_code, start_day=0):
         return f"Running status of {resp['data'].get('train_name')} (*{resp['data'].get('train_number')}*) : {resp['data'].get('new_message')}"
 
     return f"Unable to fetch the live status!"
+
+
+def train_schedule_response(train_code, start_day=0):
+    resp = train_schedule(train_code)
+    # resp = sampleResponse
+
+    if resp.get('status') and resp.get('message') == 'Success':
+
+        return f"{resp['data'].get('train_name')} (*{resp['data'].get('train_number')}*) : {resp['data'].get('title')}. It starts from *{resp['data'].get('source')}* and terminate at *{resp['data'].get('destination')}*"
+
+    return f"Unable to fetch schedule of train!"
