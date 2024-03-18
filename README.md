@@ -1,44 +1,39 @@
-# IRCTC Tracking Telegram Bot
+# irctcBot
 
-This Telegram bot allows users to track Indian Railway train statuses and get real-time updates directly on their Telegram app.
+irctcBot is a Telegram bot that provides various features related to train information. With irctcBot, users can easily retrieve information about train schedules, fares, PNR status, and more.
 
 ## Features
 
-- **PNR Status**: Users can track the status of their pnr number.
-<!-- - **Subscription**: Users can subscribe to receive notifications for specific trains by providing the train number and preferred events (departure, arrival, delays, etc.).
-- **Real-time Updates**: Users receive real-time updates on their subscribed trains directly on their Telegram app.
-- **User-friendly Interface**: The bot provides a simple and intuitive interface for users to interact with.
+irctcBot supports the following commands:
+
+- **/help**: Display a list of available commands.
+- **/pnr**: Get the PNR status of a train ticket.
+- **/searchstation**: Search for a station by name.
+- **/searchtrain**: Search for a train by number.
+- **/getfare**: Get fare information for a train.
+- **/track**: Track the running status of a train.
+- **/schedule**: Get the schedule time of a train.
 
 ## Getting Started
 
-To use the IRCTC tracking Telegram bot, follow these steps:
+To start using irctcBot, follow these steps:
 
-1. **Prerequisites**: You need to have a Telegram account and the Telegram app installed on your device.
+1. **Add irctcBot to Telegram**: Search for "@@RailQueryBot" on Telegram and click on "/start" to initiate a conversation with the bot.
 
-2. **Add the Bot**: Search for the bot in Telegram by its username or click on the provided link to add it to your Telegram contacts.
+2. **Use Commands**: Type any of the supported commands mentioned above to interact with irctcBot and retrieve the desired information.
 
-3. **Start Tracking**: Start tracking your favorite trains by providing the train number and subscribing to specific events.
+## Usage Examples
 
-## Usage
+Here are some examples of how to use irctcBot:
 
-1. **/track \<train_number\>**: Start tracking a train by providing its number. For example: `/track 12345`.
+- `/help`: Display a list of available commands.
+- `/pnr <PNR_NUMBER>`: Get the PNR status of the specified train ticket.
+- `/searchstation <STATION_NAME>`: Search for a station by name.
+- `/searchtrain <TRAIN_NUMBER>`: Search for a train by its number.
+- `/getfare <TRAIN_NUMBER>`: Get fare information for the specified train.
+- `/track <TRAIN_NUMBER>`: Track the running status of the specified train.
+- `/schedule <TRAIN_NUMBER>`: Get the schedule time of the specified train.
 
-2. **/subscribe \<train_number\> \<event\>**: Subscribe to receive notifications for specific events of a train. Events include departure, arrival, delays, etc. For example: `/subscribe 12345 departure`.
+## Feedback
 
-3. **/unsubscribe \<train_number\>**: Unsubscribe from notifications for a specific train. For example: `/unsubscribe 12345`.
-
-4. **/help**: Get help and information about the available commands.
-
-## Contributing
-
-Contributions are welcome! If you want to contribute to the development of this bot, please follow the standard GitHub workflow:
-
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature/xyz`).
-3. Make your changes and commit them (`git commit -am 'Add new feature'`).
-4. Push to the branch (`git push origin feature/xyz`).
-5. Create a new Pull Request.
-
-## License
-
-This project is licensed under the [MIT License](LICENSE). -->
+If you have any feedback, suggestions, or issues regarding irctcBot, feel free to contact us or open an issue on GitHub.
