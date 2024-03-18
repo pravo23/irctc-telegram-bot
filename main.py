@@ -9,20 +9,12 @@ bot = TeleBot(BOT_TOKEN)
 
 
 def help_message():
-    return """Here are some commands you can use:\n
-    */help* : Display help message
-    */pnr* : Get the pnr status of the train ticket
-    */searchStation* : Search station name
-    */searchTrain* : Search the train by number
-    */getFair* : Get fair for train
-    */track* : Get train running status
-    */schedule* : Get train schedule time
-    """
+    return """Available Commands:\n\n*/help* - Display a list of available commands.\n*/pnr* - Get the PNR status of a train ticket\n*/searchstation* -  Search for a station by name\n*/searchtrain* - Search for a train by number\n*/getfair* - Get fare information for a train\n*/track* - Track the running status of a train\n*/schedule* - Get the schedule time of a train"""
 
 
 @bot.message_handler(commands=["start", "help"])
 def greet(message):
-    greet_message = "Welcome to the IRCTC Telegram Bot! " + help_message()
+    greet_message = "Welcome to the IRCTC Telegram Bot!\n\n" + help_message()
     bot.send_message(message.chat.id, greet_message, parse_mode='Markdown')
 
 
@@ -43,7 +35,7 @@ def pnr_status_handler(message):
     bot.send_message(message.chat.id, help_message(), parse_mode="Markdown")
 
 
-@bot.message_handler(commands=["searchStation"])
+@bot.message_handler(commands=["searchstation"])
 def get_station(message):
     input_message = "Please enter the station code!"
     sent_message = bot.send_message(
@@ -60,7 +52,7 @@ def get_station_handler(message):
     bot.send_message(message.chat.id, help_message(), parse_mode="Markdown")
 
 
-@bot.message_handler(commands=["searchTrain"])
+@bot.message_handler(commands=["searchtrain"])
 def get_train(message):
     input_message = "Please enter the train number!"
     sent_message = bot.send_message(
@@ -77,7 +69,7 @@ def get_train_handler(message):
     bot.send_message(message.chat.id, help_message(), parse_mode="Markdown")
 
 
-@bot.message_handler(commands=["getFair"])
+@bot.message_handler(commands=["getfair"])
 def get_fair(message):
     input_message = "Please enter the train number!"
     sent_message = bot.send_message(
