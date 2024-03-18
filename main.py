@@ -40,7 +40,7 @@ def pnr_status_handler(message):
     pnr_number = message.text
     status_msg = rail_query_helper.pnr_status_message(pnr_number)
     bot.send_message(message.chat.id, status_msg, parse_mode="Markdown")
-    bot.send_message(message.chat.id, help_message())
+    bot.send_message(message.chat.id, help_message(), parse_mode="Markdown")
 
 
 @bot.message_handler(commands=["searchStation"])
@@ -57,7 +57,7 @@ def get_station_handler(message):
     station_code = message.text
     resp_message = rail_query_helper.search_station_response(station_code)
     bot.send_message(message.chat.id, resp_message, parse_mode="Markdown")
-    bot.send_message(message.chat.id, help_message())
+    bot.send_message(message.chat.id, help_message(), parse_mode="Markdown")
 
 
 @bot.message_handler(commands=["searchTrain"])
@@ -74,7 +74,7 @@ def get_train_handler(message):
     train_code = message.text
     resp_message = rail_query_helper.search_train_response(train_code.strip())
     bot.send_message(message.chat.id, resp_message, parse_mode="Markdown")
-    bot.send_message(message.chat.id, help_message())
+    bot.send_message(message.chat.id, help_message(), parse_mode="Markdown")
 
 
 @bot.message_handler(commands=["getFair"])
@@ -126,7 +126,7 @@ def get_fair_handler(message, train_code, source_station_code):
         resp_message,
         parse_mode="Markdown"
     )
-    bot.send_message(message.chat.id, help_message())
+    bot.send_message(message.chat.id, help_message(), parse_mode="Markdown")
 
 
 @bot.message_handler(commands=["track"])
@@ -145,7 +145,7 @@ def get_train_running_status_handler(message):
     resp_message = rail_query_helper.live_train_status_response(
         train_code.strip())
     bot.send_message(message.chat.id, resp_message, parse_mode="Markdown")
-    bot.send_message(message.chat.id, help_message())
+    bot.send_message(message.chat.id, help_message(), parse_mode="Markdown")
 
 
 @bot.message_handler(commands=["schedule"])
@@ -164,7 +164,7 @@ def get_train_schedule_handler(message):
     resp_message = rail_query_helper.train_schedule_response(
         train_code.strip())
     bot.send_message(message.chat.id, resp_message, parse_mode="Markdown")
-    bot.send_message(message.chat.id, help_message())
+    bot.send_message(message.chat.id, help_message(), parse_mode="Markdown")
 
 
 bot.infinity_polling()
