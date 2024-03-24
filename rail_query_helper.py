@@ -56,47 +56,45 @@ def train_schedule(train_code):
     return get_rail_query_info(url)
 
 
-def seat_availability(params):
-    class_type, from_station_code, quota, to_station_code, train_code, date = (
-        params.get(key) for key in [
-            'class_type', 'from_station_code', 'quota', 'to_station_code', 'train_code', 'date'])
-
-    seat_availability_endpoint = railApiEndpoints['seatAvailability'].format(
-        class_type, from_station_code, quota, to_station_code, train_code, date
-    )
-    url = f"https://{{}}{seat_availability_endpoint}"
-    return get_rail_query_info(url)
-
-
-def train_classes(train_code):
-    train_classes_endpoint = railApiEndpoints['trainClasses'].format(
-        train_code)
-    url = f"https://{{}}{train_classes_endpoint}"
-    return get_rail_query_info(url)
-
-
 def fetch_fair(train_code, from_station_code, to_station_code):
     fetch_fair_endpoint = railApiEndpoints['fetchFair'].format(
         train_code, from_station_code, to_station_code)
     url = f"https://{{}}{fetch_fair_endpoint}"
     return get_rail_query_info(url)
 
+# !Deprecated - unused handlers
+# def seat_availability(params):
+#     class_type, from_station_code, quota, to_station_code, train_code, date = (
+#         params.get(key) for key in [
+#             'class_type', 'from_station_code', 'quota', 'to_station_code', 'train_code', 'date'])
 
-def train_by_station(station_code):
-    train_by_station_endpoint = railApiEndpoints['trainByStations'].format(
-        station_code)
-    url = f"https://{{}}{train_by_station_endpoint}"
-    return get_rail_query_info(url)
+#     seat_availability_endpoint = railApiEndpoints['seatAvailability'].format(
+#         class_type, from_station_code, quota, to_station_code, train_code, date
+#     )
+#     url = f"https://{{}}{seat_availability_endpoint}"
+#     return get_rail_query_info(url)
 
 
-def live_stations(from_station_code, to_station_code, hours):
-    live_stations_endpoint = railApiEndpoints['liveStations'].format(
-        from_station_code, to_station_code, hours)
-    url = f"https://{{}}{live_stations_endpoint}"
-    return get_rail_query_info(url)
+# def train_classes(train_code):
+#     train_classes_endpoint = railApiEndpoints['trainClasses'].format(
+#         train_code)
+#     url = f"https://{{}}{train_classes_endpoint}"
+#     return get_rail_query_info(url)
+
+# def train_by_station(station_code):
+#     train_by_station_endpoint = railApiEndpoints['trainByStations'].format(
+#         station_code)
+#     url = f"https://{{}}{train_by_station_endpoint}"
+#     return get_rail_query_info(url)
+
+
+# def live_stations(from_station_code, to_station_code, hours):
+#     live_stations_endpoint = railApiEndpoints['liveStations'].format(
+#         from_station_code, to_station_code, hours)
+#     url = f"https://{{}}{live_stations_endpoint}"
+#     return get_rail_query_info(url)
 
 # methods for the formatted response
-
 
 def pnr_status_message(pnr: str):
 
@@ -106,8 +104,6 @@ def pnr_status_message(pnr: str):
         return f"Your Booking is *{data['ConfirmTktStatus']}* and Current Status is *{data['CurrentStatus']}*"
 
     return "Unable to fetch the pnr : *{pnr}*"
-
-# TODO: fetch the code instead, based on search query?
 
 
 def search_station_response(station_code: str):
