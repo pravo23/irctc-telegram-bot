@@ -9,7 +9,7 @@ bot = TeleBot(BOT_TOKEN)
 
 
 def help_message():
-    return """Available Commands:\n\n*/help* - Display a list of available commands.\n*/pnr* - Get the PNR status of a train ticket\n*/searchstation* -  Search for a station by name\n*/searchtrain* - Search for a train by number\n*/getfair* - Get fare information for a train\n*/track* - Track the running status of a train\n*/schedule* - Get the schedule time of a train"""
+    return """Available Commands:\n\n*/help* - Display a list of available commands.\n*/pnr* - Get the PNR status of a train ticket\n*/searchstation* -  Search for a station by name\n*/searchtrain* - Search for a train by number\n*/getfair* - Get fare information for a train\n*/track* - Track the running status of a train\n*/schedule* - Get the schedule time of a train\n*/trainbetweenstation* - Get the trains between stations"""
 
 
 @bot.message_handler(commands=["start", "help"])
@@ -155,6 +155,58 @@ def get_train_schedule_handler(message):
     train_code = message.text
     resp_message = rail_query_helper.train_schedule_response(
         train_code.strip())
+    bot.send_message(message.chat.id, resp_message, parse_mode="Markdown")
+    bot.send_message(message.chat.id, help_message(), parse_mode="Markdown")
+
+
+@bot.message_handler(commands=["trainbetweenstation"])
+def get_train_between_station_source(message):
+    input_message = "Please enter the *station-code* for source station!"
+    sent_message = bot.send_message(
+        message.chat.id,
+        input_message,
+        parse_mode="Markdown")
+    bot.register_next_step_handler(
+        sent_message, get_train_between_station_destination)
+
+
+def get_train_between_station_destination(message):
+    source_station = message.text
+    input_message = "Please enter the *station-code* for destination station!"
+    sent_message = bot.send_message(
+        message.chat.id,
+        input_message,
+        parse_mode="Markdown")
+    bot.register_next_step_handler(
+        sent_message,
+        get_train_between_station_date,
+        source_station)
+
+
+def get_train_between_station_date(message, source_station):
+    destination_station = message.text
+    input_message = "Please enter the *date* in format YYYY-MM-DD!"
+    sent_message = bot.send_message(
+        message.chat.id,
+        input_message,
+        parse_mode="Markdown")
+    bot.register_next_step_handler(
+        sent_message,
+        get_train_between_station_handler,
+        source_station,
+        destination_station)
+
+
+def get_train_between_station_handler(
+        message,
+        source_station,
+        destination_station):
+    date = message.text.strip()
+    source_station = source_station.strip().upper()
+    destination_station = destination_station.strip().upper()
+
+    resp_message = rail_query_helper.train_between_station_response(
+        source_station, destination_station, date)
     bot.send_message(message.chat.id, resp_message, parse_mode="Markdown")
     bot.send_message(message.chat.id, help_message(), parse_mode="Markdown")
 

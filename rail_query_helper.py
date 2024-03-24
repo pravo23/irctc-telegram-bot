@@ -1,7 +1,6 @@
 import os
 import requests
-# TODO : remove sample response after test
-from constants import railApiEndpoints, sampleResponse
+from constants import railApiEndpoints
 
 
 def get_rail_query_info(url: str):
@@ -110,6 +109,7 @@ def pnr_status_message(pnr: str):
 
 # TODO: fetch the code instead, based on search query?
 
+
 def search_station_response(station_code: str):
     resp = search_station(station_code)
     if resp.get('status') and resp.get('message') == 'Success':
@@ -128,7 +128,7 @@ def search_train_response(train_code: str):
             if train.get('train_number') == train_code:
                 return f"{train_code} : *{train.get('train_name')}*"
 
-        return f"No train available for the given train number : {train_code}"
+        return f"No train available for the given train number - {train_code}"
 
     return f"Could not fetch the data. Try again!"
 
@@ -139,7 +139,7 @@ def fetch_fair_response(
         to_station_code: str):
     resp = fetch_fair(train_code, from_station_code, to_station_code)
     # resp = samprleResponse
-    total_fare = {'general': {}, 'tatkal': {}}
+    total_fare = {'general' - {}, 'tatkal' - {}}
 
     if resp.get('status') and resp.get('message') == 'Success':
         # Process general data
@@ -163,11 +163,11 @@ def fetch_fair_response(
 
     multiline_string += "Total Fare for General Class:\n"
     for class_type, fare in total_fare['general'].items():
-        multiline_string += f"{class_type}: {fare}\n"
+        multiline_string += f"{class_type}- {fare}\n"
 
     multiline_string += "\nTotal Fare for Tatkal Class:\n"
     for class_type, fare in total_fare['tatkal'].items():
-        multiline_string += f"{class_type}: {fare}\n"
+        multiline_string += f"{class_type}- {fare}\n"
 
     return multiline_string
 
@@ -177,7 +177,7 @@ def live_train_status_response(train_code, start_day=0):
 
     if resp.get('status') and resp.get('message') == 'Success':
 
-        return f"Running status of {resp['data'].get('train_name')} (*{resp['data'].get('train_number')}*) : {resp['data'].get('new_message')}"
+        return f"Running status of {resp['data'].get('train_name')} (*{resp['data'].get('train_number')}*) - {resp['data'].get('new_message')}"
 
     return f"Unable to fetch the live status!"
 
@@ -188,6 +188,46 @@ def train_schedule_response(train_code, start_day=0):
 
     if resp.get('status') and resp.get('message') == 'Success':
 
-        return f"{resp['data'].get('train_name')} (*{resp['data'].get('train_number')}*) : {resp['data'].get('title')}. It starts from *{resp['data'].get('source')}* and terminate at *{resp['data'].get('destination')}*"
+        return f"{resp['data'].get('train_name')} (*{resp['data'].get('train_number')}*) - {resp['data'].get('title')}. It starts from *{resp['data'].get('source')}* and terminate at *{resp['data'].get('destination')}*"
 
     return f"Unable to fetch schedule of train!"
+
+
+def train_between_station_response(
+        from_station_code: str,
+        to_station_code: str,
+        date: str):
+    """
+        Fields to be populate -
+
+        train_number
+        train_name
+        from_station_name
+        to_station_name
+        from_std
+        to_sta
+        duration
+        train_date
+    """
+    message = ""
+    resp = train_between_stations(from_station_code, to_station_code, date)
+    # resp = sampleResponse
+    if resp.get('status') and resp.get('message') == 'Success':
+        train_data = resp['data']
+        # Constructing the message
+        for train in train_data:
+            train_info = [
+                f"Train Number- {train['train_number']}",
+                f"Train Name- {train['train_name']}",
+                f"From Station- {train['from_station_name']}",
+                f"To Station- {train['to_station_name']}",
+                f"Departure Time- {train['from_std']}",
+                f"Arrival Time- {train['to_sta']}",
+                f"Duration- {train['duration']}",
+                f"Date- {train['train_date']}"
+            ]
+        message += '\n'.join(train_info) + "\n\n"
+    else:
+        return f"Unable to fetch trains between stations!"
+
+    return message if message else "There is no train available between the stations!"
