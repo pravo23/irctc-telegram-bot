@@ -13,6 +13,7 @@ irctcBot supports the following commands:
 - **/getfare**: Get fare information for a train.
 - **/track**: Track the running status of a train.
 - **/schedule**: Get the schedule time of a train.
+- **/trainbetweenstation** - Get the trains between stations.
 
 ## Getting Started
 
@@ -33,6 +34,7 @@ Here are some examples of how to use irctcBot:
 - `/getfare <TRAIN_NUMBER>`: Get fare information for the specified train.
 - `/track <TRAIN_NUMBER>`: Track the running status of the specified train.
 - `/schedule <TRAIN_NUMBER>`: Get the schedule time of the specified train.
+- `/trainbetweenstation <SOURCE_STATION_NUMBER, DEST_STATION_NUMBER, DATE>`: Get the schedule time of the specified train.
 
 ## Feedback
 
