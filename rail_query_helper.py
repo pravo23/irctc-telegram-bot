@@ -180,7 +180,6 @@ def live_train_status_response(train_code, start_day=0):
 
 def train_schedule_response(train_code, start_day=0):
     resp = train_schedule(train_code)
-    # resp = sampleResponse
 
     if resp.get('status') and resp.get('message') == 'Success':
 
@@ -207,7 +206,7 @@ def train_between_station_response(
     """
     message = ""
     resp = train_between_stations(from_station_code, to_station_code, date)
-    # resp = sampleResponse
+
     if resp.get('status') and resp.get('message') == 'Success':
         train_data = resp['data']
         # Constructing the message
