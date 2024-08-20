@@ -1,5 +1,5 @@
 name: Code Review Bot
-
+# do it gihub app way - write in golang
 on:
   pull_request:
     types: [opened, synchronize]
